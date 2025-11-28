@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
+using ProductManagement.Api.Application.DTOs;
+using ProductManagement.Api.Application.Interfaces;
+
 namespace ProductManagement.Api.Controllers;
 
 [ApiController]
