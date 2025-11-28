@@ -28,3 +28,7 @@ Thumbs.db
 # Env
 .env
 .env.*
+
+# .NET build
+**/bin/
+**/obj/
