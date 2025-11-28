@@ -1,3 +1,6 @@
+using ProductManagement.Api.Domain.Entities;
+using ProductManagement.Api.Infrastructure.Data;
+
 namespace ProductManagement.Api.Infrastructure.Seed;
 
 public static class DbInitializer

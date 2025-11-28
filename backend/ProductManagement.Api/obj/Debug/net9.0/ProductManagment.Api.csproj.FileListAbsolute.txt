@@ -1,0 +1,9 @@
+/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagement.Api/obj/Debug/net9.0/ProductManagement.Api.csproj.AssemblyReference.cache
+/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagement.Api/obj/Debug/net9.0/rpswa.dswa.cache.json
+/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagement.Api/obj/Debug/net9.0/ProductManagement.Api.GeneratedMSBuildEditorConfig.editorconfig
+/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagement.Api/obj/Debug/net9.0/ProductManagement.Api.AssemblyInfoInputs.cache
+/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagement.Api/obj/Debug/net9.0/ProductManagement.Api.AssemblyInfo.cs
+/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagement.Api/obj/Debug/net9.0/ProductManagement.Api.csproj.CoreCompileInputs.cache
+/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagement.Api/obj/Debug/net9.0/ProductManagement.Api.MvcApplicationPartsAssemblyInfo.cs
+/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagement.Api/obj/Debug/net9.0/ProductManagement.Api.MvcApplicationPartsAssemblyInfo.cache
+/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagement.Api/obj/Debug/net9.0/ProductManagement.Api.sourcelink.json

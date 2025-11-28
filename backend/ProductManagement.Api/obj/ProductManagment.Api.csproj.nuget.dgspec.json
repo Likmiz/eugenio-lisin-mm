@@ -1,30 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagment.Api/ProductManagment.Api.csproj": {}
+    "/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagement.Api/ProductManagement.Api.csproj": {}
   },
   "projects": {
-    "/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagment.Api/ProductManagment.Api.csproj": {
+    "/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagement.Api/ProductManagement.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagment.Api/ProductManagment.Api.csproj",
-        "projectName": "ProductManagment.Api",
-        "projectPath": "/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagment.Api/ProductManagment.Api.csproj",
+        "projectUniqueName": "/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagement.Api/ProductManagement.Api.csproj",
+        "projectName": "ProductManagement.Api",
+        "projectPath": "/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagement.Api/ProductManagement.Api.csproj",
         "packagesPath": "/Users/evgenylisin/.nuget/packages/",
-        "outputPath": "/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagment.Api/obj/",
+        "outputPath": "/Users/evgenylisin/Desktop/Develop/Technical assessment/MM/backend/ProductManagement.Api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/evgenylisin/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net9.0"
+          "net8.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net9.0": {
-            "targetAlias": "net9.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -41,16 +41,26 @@
         "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
-        "net9.0": {
-          "targetAlias": "net9.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.AspNetCore.OpenApi": {
+            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.10, )"
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[10.0.1, )"
+              "version": "[6.5.0, )"
             }
           },
           "imports": [
@@ -64,6 +74,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.21, 8.0.21]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-arm64",
+              "version": "[8.0.21, 8.0.21]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.21, 8.0.21]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"

@@ -1,3 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using ProductManagement.Api.Application.DTOs;
+using ProductManagement.Api.Application.Interfaces;
+using ProductManagement.Api.Infrastructure.Data;
+
 namespace ProductManagement.Api.Application.Services;
 
 public class CategoryService : ICategoryService
