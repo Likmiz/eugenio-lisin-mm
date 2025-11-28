@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using ProductManagement.Api.Domain.Entities;
+
 namespace ProductManagement.Api.Infrastructure.Data;
 
 public class AppDbContext : DbContext

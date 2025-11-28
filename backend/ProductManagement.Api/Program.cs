@@ -1,5 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using ProductManagement.Api.Application.Interfaces;
+using ProductManagement.Api.Application.Services;
+using ProductManagement.Api.Infrastructure.Data;
+using ProductManagement.Api.Infrastructure.Seed;
+
 var builder = WebApplication.CreateBuilder(args);
 
+// Controllers
 builder.Services.AddControllers();
 
 // DbContext
