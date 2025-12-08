@@ -10,17 +10,15 @@ import { DataTable, type DataTableRowMouseEvent } from 'primereact/datatable';
 
 interface ProductTableProps {
     products: Product[];
+    isLoading: boolean;
     onRowClick: (product: Product) => void;
     onEdit: (product: Product) => void;
     onDelete: (product: Product) => void;
 }
 
-export const ProductTable: React.FC<ProductTableProps> = ({
-    products,
-    onRowClick,
-    onEdit,
-    onDelete,
-}) => {
+export const ProductTable: React.FC<ProductTableProps> = (props: ProductTableProps) => {
+    const { products, isLoading, onRowClick, onEdit, onDelete } = props;
+
     const handleRowClickInternal = (event: DataTableRowMouseEvent) => {
         const product = event.data as Product;
         onRowClick(product);
@@ -76,6 +74,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                 paginator
                 rows={5}
                 onRowClick={handleRowClickInternal}
+                loading={isLoading}
                 selectionMode="single"
                 dataKey="id"
                 emptyMessage="No hay productos."

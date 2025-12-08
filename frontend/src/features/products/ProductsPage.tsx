@@ -14,8 +14,10 @@ import type { Category } from '../../types/category';
 import type { Product } from '../../types/product';
 import type { ProductFormValues } from './ProductFormDialog';
 
-import { createProduct, updateProduct, deleteProduct } from '../../api/productsApi';
+import { createProduct, updateProduct, deleteProduct, getProducts } from '../../api/productsApi';
 
+// Mock
+/*
 const mockProducts: Product[] = [
     {
         id: 1,
@@ -33,7 +35,7 @@ const mockProducts: Product[] = [
         categoryId: 2,
         categoryName: 'Ropa',
     },
-];
+];*/
 
 export const ProductsPage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -45,10 +47,14 @@ export const ProductsPage: React.FC = () => {
         error: categoriesError,
     } = useAppSelector((state) => state.categories);
 
-    const [products, setProducts] = useState<Product[]>(mockProducts);
+    // Mock
+    //const [products, setProducts] = useState<Product[]>(mockProducts);
+
+    const [products, setProducts] = useState<Product[]>([]);
     const [search, setSearch] = useState('');
     const [categoryFilter, setCategoryFilter] = useState<number | null>(null);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isDetailOpen, setIsDetailOpen] = useState(false);
     const [isFormOpen, setIsFormOpen] = useState(false);
 
@@ -68,6 +74,28 @@ export const ProductsPage: React.FC = () => {
             });
         }
     }, [categoriesError]);
+
+    useEffect(() => {
+        const loadProducts = async () => {
+            try {
+                setIsLoading(true);
+                const data = await getProducts();
+                setProducts(data);
+            } catch (error) {
+                console.error('Error loading products:', error);
+                toastRef.current?.show({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'No se han podido cargar los productos.',
+                    life: 3000,
+                });
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadProducts();
+    }, []);
 
     const handleRowClick = (product: Product) => {
         setSelectedProduct(product);
@@ -113,6 +141,7 @@ export const ProductsPage: React.FC = () => {
             categories.find((c) => c.id === categoryId)?.name || 'Sin categoría';
 
         try {
+            // DTO для API
             const payload = {
                 name: values.name,
                 description: values.description,
@@ -121,12 +150,14 @@ export const ProductsPage: React.FC = () => {
             };
 
             if (productId) {
-                // UPDATE (PUT)
+                // UPDATE: PUT /products/{id}
                 const updatedFromApi = await updateProduct(productId, payload);
 
                 const normalizedUpdated: Product = {
                     ...updatedFromApi,
-                    categoryName: updatedFromApi.categoryName ?? findCategoryName(updatedFromApi.categoryId),
+                    categoryName:
+                    (updatedFromApi as any).categoryName ??
+                    findCategoryName(updatedFromApi.categoryId),
                 };
 
                 setProducts((prev) =>
@@ -140,12 +171,14 @@ export const ProductsPage: React.FC = () => {
                     life: 2500,
                 });
             } else {
-                // CREATE (POST)
+                // CREATE: POST /products
                 const createdFromApi = await createProduct(payload);
 
                 const normalizedCreated: Product = {
                     ...createdFromApi,
-                    categoryName: createdFromApi.categoryName ?? findCategoryName(createdFromApi.categoryId),
+                    categoryName:
+                        (createdFromApi as any).categoryName ??
+                        findCategoryName(createdFromApi.categoryId),
                 };
 
                 setProducts((prev) => [...prev, normalizedCreated]);
@@ -175,8 +208,8 @@ export const ProductsPage: React.FC = () => {
     const filteredProducts = products.filter((p) => {
         const matchesSearch =
             !search ||
-            p.name.toLowerCase().includes(search.toLowerCase()) ||
-            p.description.toLowerCase().includes(search.toLowerCase());
+                p.name.toLowerCase().includes(search.toLowerCase()) ||
+                p.description.toLowerCase().includes(search.toLowerCase());
 
         const matchesCategory =
             !categoryFilter || p.categoryId === categoryFilter;
@@ -208,6 +241,7 @@ export const ProductsPage: React.FC = () => {
 
             <ProductTable
                 products={filteredProducts}
+                isLoading={isLoading}
                 onRowClick={handleRowClick}
                 onEdit={handleEditClick}
                 onDelete={handleDeleteClick}
