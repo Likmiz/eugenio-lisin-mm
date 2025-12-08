@@ -44,6 +44,9 @@ public class ProductsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<ProductDto>> Create([FromBody] ProductCreateDto dto)
     {
+        if (!ModelState.IsValid)
+            return ValidationProblem(ModelState);
+
         try
         {
             var created = await _productService.CreateAsync(dto);
