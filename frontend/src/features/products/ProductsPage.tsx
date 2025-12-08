@@ -14,6 +14,8 @@ import type { Category } from '../../types/category';
 import type { Product } from '../../types/product';
 import type { ProductFormValues } from './ProductFormDialog';
 
+import { createProduct, updateProduct, deleteProduct } from '../../api/productsApi';
+
 const mockProducts: Product[] = [
     {
         id: 1,
@@ -82,69 +84,92 @@ export const ProductsPage: React.FC = () => {
         setIsFormOpen(true);
     };
 
-    const handleDeleteClick = (product: Product) => {
-        setProducts((prev) => prev.filter((p) => p.id !== product.id));
-        toastRef.current?.show({
-            severity: 'info',
-            summary: 'Producto eliminado',
-            detail: `Producto "${product.name}" eliminado (mock).`,
-            life: 2000,
-        });
+    const handleDeleteClick = async (product: Product) => {
+        try {
+            await deleteProduct(product.id);
+
+            setProducts((prev) => prev.filter((p) => p.id !== product.id));
+
+            toastRef.current?.show({
+                severity: 'success',
+                summary: 'Producto eliminado',
+                detail: `El producto "${product.name}" se ha eliminado correctamente.`,
+                life: 2500,
+            });
+        } catch (error) {
+            console.error('Error al eliminar el producto:', error);
+
+            toastRef.current?.show({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'No se ha podido eliminar el producto. Inténtalo de nuevo.',
+                life: 3000,
+            });
+        }
     };
 
     const handleSaveProduct = async (values: ProductFormValues, productId?: number) => {
         const findCategoryName = (categoryId: number): string =>
             categories.find((c) => c.id === categoryId)?.name || 'Sin categoría';
 
-        if (productId) {
-            setProducts((prev) =>
-                prev.map((p) =>
-                    p.id === productId
-                        ? {
-                            ...p,
-                            name: values.name,
-                            description: values.description,
-                            price: values.price,
-                            categoryId: values.categoryId,
-                            categoryName: findCategoryName(values.categoryId),
-                        }
-                        : p,
-                ),
-            );
+        try {
+            const payload = {
+                name: values.name,
+                description: values.description,
+                price: values.price,
+                categoryId: values.categoryId,
+            };
 
-            toastRef.current?.show({
-                severity: 'success',
-                summary: 'Producto actualizado',
-                detail: `El producto "${values.name}" se ha actualizado correctamente.`,
-                life: 2500,
-            });
-        } else {
-            setProducts((prev) => {
-                const newId = prev.length ? Math.max(...prev.map((p) => p.id)) + 1 : 1;
-                const categoryName = findCategoryName(values.categoryId);
+            if (productId) {
+                // UPDATE (PUT)
+                const updatedFromApi = await updateProduct(productId, payload);
 
-                const newProduct: Product = {
-                    id: newId,
-                    name: values.name,
-                    description: values.description,
-                    price: values.price,
-                    categoryId: values.categoryId,
-                    categoryName,
+                const normalizedUpdated: Product = {
+                    ...updatedFromApi,
+                    categoryName: updatedFromApi.categoryName ?? findCategoryName(updatedFromApi.categoryId),
                 };
 
-                return [...prev, newProduct];
-            });
+                setProducts((prev) =>
+                    prev.map((p) => (p.id === productId ? normalizedUpdated : p)),
+                );
+
+                toastRef.current?.show({
+                    severity: 'success',
+                    summary: 'Producto actualizado',
+                    detail: `El producto "${values.name}" se ha actualizado correctamente.`,
+                    life: 2500,
+                });
+            } else {
+                // CREATE (POST)
+                const createdFromApi = await createProduct(payload);
+
+                const normalizedCreated: Product = {
+                    ...createdFromApi,
+                    categoryName: createdFromApi.categoryName ?? findCategoryName(createdFromApi.categoryId),
+                };
+
+                setProducts((prev) => [...prev, normalizedCreated]);
+
+                toastRef.current?.show({
+                    severity: 'success',
+                    summary: 'Producto creado',
+                    detail: `El producto "${values.name}" se ha creado correctamente.`,
+                    life: 2500,
+                });
+            }
+
+            setIsFormOpen(false);
+            setSelectedProduct(null);
+        } catch (error) {
+            console.error('Error al guardar el producto:', error);
 
             toastRef.current?.show({
-                severity: 'success',
-                summary: 'Producto creado',
-                detail: `El producto "${values.name}" se ha creado correctamente.`,
-                life: 2500,
+                severity: 'error',
+                summary: 'Error',
+                detail: 'No se ha podido guardar el producto. Inténtalo de nuevo.',
+                life: 3000,
             });
         }
-
-        setIsFormOpen(false);
-        setSelectedProduct(null);
     };
 
     const filteredProducts = products.filter((p) => {
