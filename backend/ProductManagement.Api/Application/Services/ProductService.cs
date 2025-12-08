@@ -68,13 +68,8 @@ public class ProductService : IProductService
 
     public async Task<ProductDto> CreateAsync(ProductCreateDto dto)
     {
-        if (string.IsNullOrWhiteSpace(dto.Name))
-            throw new ArgumentException("Name is required", nameof(dto.Name));
-
-        if (dto.Price <= 0)
-            throw new ArgumentException("Price must be greater than 0", nameof(dto.Price));
-
         var categoryExists = await _dbContext.Categories.AnyAsync(c => c.Id == dto.CategoryId);
+
         if (!categoryExists)
             throw new ArgumentException("Category does not exist", nameof(dto.CategoryId));
 
@@ -110,13 +105,8 @@ public class ProductService : IProductService
 
         if (entity == null) return null;
 
-        if (string.IsNullOrWhiteSpace(dto.Name))
-            throw new ArgumentException("Name is required", nameof(dto.Name));
-
-        if (dto.Price <= 0)
-            throw new ArgumentException("Price must be greater than 0", nameof(dto.Price));
-
         var categoryExists = await _dbContext.Categories.AnyAsync(c => c.Id == dto.CategoryId);
+        
         if (!categoryExists)
             throw new ArgumentException("Category does not exist", nameof(dto.CategoryId));
 
