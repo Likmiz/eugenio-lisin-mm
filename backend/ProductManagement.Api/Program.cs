@@ -6,6 +6,10 @@ using ProductManagement.Api.Infrastructure.Seed;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+c.IncludeXmlComments(xmlPath);
+
 // Controllers
 builder.Services.AddControllers();
 
