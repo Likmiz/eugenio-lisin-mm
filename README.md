@@ -4,16 +4,12 @@ Prueba técnica: aplicación de gestión de productos (CRUD completo de producto
 
 ## Stack
 
-- **Backend**: .NET 8  
-  - API REST con CRUD de productos  
-  - SQL Server Express (EF Core)  
-  - Swagger / OpenAPI  
-  - Validación de datos con DataAnnotations (DTOs)  
-
-- **Frontend**: React + TypeScript + Vite  
-  - PrimeReact (tabla, formularios, modales, layout)  
-  - Redux Toolkit (estado global de categorías)  
-  - Formik + Yup (validación de formularios en el cliente)  
+- **Backend:** .NET 8 (API REST, SQL Server, Swagger, CORS)
+- **Frontend:** React + TypeScript + Vite  
+  - PrimeReact (tabla, formularios, diálogos)
+  - Redux Toolkit (gestión global de categorías)
+  - Formik + Yup (gestión de formularios y validación)
+- **Base de datos:** SQL Server (instancia local o Docker)
 
 ## Estructura del repositorio
 
